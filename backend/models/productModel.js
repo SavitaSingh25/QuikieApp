@@ -8,13 +8,16 @@ const productSchema = mongoose.Schema(
         },
         symbol: {
             type: String,
-            //required: true
+            required: true
         },
         currency: {
-            type: Number,
+            type: String,
             required: true,
-            default: 0
         },
+        price: {
+            type: String,
+            required: true
+        }
     }, 
     {
         timestamps: true,

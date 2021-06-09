@@ -27,35 +27,43 @@ router.get('/:id', async(req, res) => {
 
 // @decs         Add a new  Product 
 // @route        POST /api/products/addProduct
-// @access       Public
+// @access       Public  vxc
 
 router.post('/addProduct', async(req, res) => {
-    const {name, symbol, currency} = req.body
+    const {name, symbol, currency, price} = req.body
 
-    const product = await Product.create({
-        name,
-        symbol,
-        currency
-    })
-
-    if(product) {
-        res.status(201).json({
-            _id: product._id,
-            name: product.name,
-            symbol: product.symbol,
-            currency: product.currency,
+    try {
+        const product = await Product.create({
+            name,
+            symbol,
+            currency,
+            price
         })
-    } else {
-        res.status(400)
-        throw new Error('Invalid product data')
+    
+        if(product) {
+            res.status(201).json({
+                _id: product._id,
+                name: product.name,
+                symbol: product.symbol,
+                currency: product.currency,
+                price: product.price
+            })
+        } else {
+            res.status(400)
+            throw new Error('Invalid product data')
+        }
+        
+    } catch (error) {
+        res.send(error)
     }
+   
 })
 
 
 // @router      Delete api/products/id
 // @desc        Delete  Product
 // @access      Private
-router.delete('/delete/:id',  async (req, res) => {
+router.delete('/:id',  async (req, res) => {
     try {
       const product = await Product.findById(req.params.id)
 

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { Row, Col, Button } from 'react-bootstrap'
 import FetchProducts from '../screen/FetchProducts'
+import { LinkContainer } from 'react-router-bootstrap'
+import axios from 'axios'
 
 const Products = () => {
     const [record, setRecord] = useState([])
+
+    var [buttonvalue, setButtonvalue] = useState('')
 
  useEffect(() => {
       const data= FetchProductDetail()   
@@ -18,11 +22,19 @@ const Products = () => {
    }
      
    const SaveData = async(name,symbol,currency,price) => {
-       
+    
+    //const productData = {"name":name,"symbol":symbol,"currency":currency
+    
+    const data = await axios.post('http://localhost:5000/api/products/addProduct',{
+        "name": name,
+        "symbol": symbol,
+        "currency": currency,
+        "price": price
+    })
     //debugger
-    console.log('savedata',name, symbol,currency,price)
-    //debugger
-   
+    data!==null ? setButtonvalue(data.data.name) : setButtonvalue("false") 
+    console.log('cond',buttonvalue)
+    return data
    }
 
     return (
@@ -44,7 +56,23 @@ const Products = () => {
                                 <Card.Text as='div'>
                                 Price: {product.price}
                                 </Card.Text>
-                                <Button variant="outline-danger" onClick={SaveData(product.name, product.symbol, product.currency, product.price)}> Save Data </Button>
+                               {/* 
+                                <Button variant="info" size="sm" onClick={()=>SaveData(product.name, product.symbol, product.currency, product.price)}> 
+                                {buttonvalue===product.name ? "View Data" : "Save Data" }</Button>
+                                {console.log('condIn',buttonvalue)}
+                                */}
+
+                               {buttonvalue===product.name ? 
+                                 <LinkContainer to={`/productdetail?id=${product._id}`}>
+                                   
+                                 <Button variant="info" size="sm">View Data</Button>
+                               </LinkContainer>
+                                   :
+                                 <Button variant="info" size="sm" onClick={()=>SaveData(product.name, product.symbol, product.currency, product.price)}>Save Data </Button> 
+                                  
+                               }
+                               
+                                
                         </Card.Body>
                     </Card>
                 </Col>
