@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { Row, Col, ListGroup, Card } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -12,10 +11,8 @@ const ProductDetails = ({ match }) => {
 
       const fetchProduct = async (id) => {
           const data = await axios.get(`http://localhost:5000/api/products/${match.params._id}`)
-         //const data = await axios.get(`http://localhost:5000/api/products/60c12be5a726391dd8cf4868`)
           const result = data.data
           setProduct(result)
-          console.log('view',result)
           return result
       }
 

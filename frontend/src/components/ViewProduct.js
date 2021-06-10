@@ -27,7 +27,7 @@ const ViewProduct = () => {
         const DeleteAction = async(id) => {
             const data = await axios.delete('http://localhost:5000/api/products/'+id)
             window.alert('Are you sure to delete?')
-             history.push('/view')
+            history.push('/view')
         }
 
 
@@ -40,9 +40,6 @@ const ViewProduct = () => {
         <h1>All Products</h1>
         <br/>
         <Row>
-        <Col md={2}>
-                <h3>Id</h3>
-                </Col>
                  <Col md={2}>
                 <h3>Name</h3>
                 </Col>
@@ -61,10 +58,7 @@ const ViewProduct = () => {
         </Row>
         {product.map(Item => (
             <Row Key={Item.id}>
-                
-                <Col md={2}>
-                   {Item._id}
-                </Col>
+            
                 <Col md={2}>
                    {Item.name}
                 </Col>

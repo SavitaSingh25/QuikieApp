@@ -5,11 +5,13 @@ import FetchProducts from '../screen/FetchProducts'
 import { LinkContainer } from 'react-router-bootstrap'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
 const Products = () => {
     const [record, setRecord] = useState([])
-
     var [buttonvalue, setButtonvalue] = useState('')
+
+    const history = useHistory();
 
  useEffect(() => {
       const data= FetchProductDetail()   
@@ -32,9 +34,9 @@ const Products = () => {
         "currency": currency,
         "price": price
     })
-//debugger
-    data!==null ? setButtonvalue(data.data.name) : setButtonvalue("false") 
-    console.log('cond',buttonvalue)
+
+    data!==null ? localStorage.setItem('btnval',data.data.name) : setButtonvalue("false") 
+    history.push('/')
     return data
    }
 
@@ -62,19 +64,19 @@ const Products = () => {
                                 <Button variant="info" size="sm" onClick={()=>SaveData(product.name, product.symbol, product.currency, product.price)}> 
                                 {buttonvalue===product.name ? "View Data" : "Save Data" }</Button>
                                 {console.log('condIn',buttonvalue)}
+
+                                <LinkContainer to={`/productdetail?id=${product._id}`}>
                                 */}
                             
-                                {console.log('pid',product._id)}
-                               {buttonvalue===product.name ? 
-                                 <LinkContainer to={`/productdetail?id=${product._id}`}>
-                                   
+                               {console.log('btnvaluue',buttonvalue)}
+                                 {localStorage.btnval===product.name ? 
+                               <LinkContainer to={`/view`}>
                                  <Button variant="info" size="sm">View Data</Button>
                                </LinkContainer>
                                    :
                                  <Button variant="info" size="sm" onClick={()=>SaveData(product.name, product.symbol, product.currency, product.price)}>Save Data </Button> 
                                   
-                               }
-                               
+                               }    
                                 
                         </Card.Body>
                     </Card>
