@@ -34,8 +34,9 @@ const ViewProduct = () => {
     return (
         <>
         <LinkContainer to='/'>
-                                 <Button variant="info" size="sm">Home</Button>
- </LinkContainer>
+             <Button variant="info" size="sm">Home</Button>
+         </LinkContainer>
+         
         <h1>All Products</h1>
         <br/>
         <Row>
@@ -68,16 +69,16 @@ const ViewProduct = () => {
                    {Item.name}
                 </Col>
                 <Col md={2}>
-                        {Item.symbol}
+                    {Item.symbol}
                 </Col>
                 <Col md={2}>
-                        {Item.currency}
+                    {Item.currency}
                 </Col>
                 <Col md={2}>
-                        {Item.price}
+                    {Item.price}
                 </Col>
                 <Col md={2}>
-                        <Button variant="outline-danger" onClick={()=>DeleteAction(Item._id)}>Delete</Button>
+                    <Button variant="outline-danger" onClick={()=>DeleteAction(Item._id)}>Delete</Button>
                 </Col>
             </Row>
                ))}   

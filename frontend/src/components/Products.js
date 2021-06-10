@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 import FetchProducts from '../screen/FetchProducts'
 import { LinkContainer } from 'react-router-bootstrap'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const [record, setRecord] = useState([])
@@ -31,7 +32,7 @@ const Products = () => {
         "currency": currency,
         "price": price
     })
-    //debugger
+//debugger
     data!==null ? setButtonvalue(data.data.name) : setButtonvalue("false") 
     console.log('cond',buttonvalue)
     return data
@@ -39,6 +40,7 @@ const Products = () => {
 
     return (
         <>
+        <Link to='/view'>View All Products</Link><br />
          <Row>
             {record.map(product => (
                 <Col  sm={12} md={6} lg={4} xl={3}>
@@ -61,7 +63,8 @@ const Products = () => {
                                 {buttonvalue===product.name ? "View Data" : "Save Data" }</Button>
                                 {console.log('condIn',buttonvalue)}
                                 */}
-
+                            
+                                {console.log('pid',product._id)}
                                {buttonvalue===product.name ? 
                                  <LinkContainer to={`/productdetail?id=${product._id}`}>
                                    
